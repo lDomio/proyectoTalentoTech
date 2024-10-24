@@ -28,9 +28,8 @@ header{
 }
 
 nav {
-    height: 75px;
     width: 100%;
-    background-color: gray;
+    background-color: white;
     gap: 20px;
 
     && .logo{
@@ -59,12 +58,11 @@ nav {
 }
 
 main{
-    background-color: brown;
+    background-color: white;
 
     && .nuevosIngresos{
         width: 100%;
         height: 400px;
-        background-color: burlywood;
     
         display: grid;
         grid-template-columns: .5fr 1fr;
@@ -82,20 +80,48 @@ main{
     }
 }
 
-.arrival{
+.contenedorImagenArrival{
     grid-area: arrival;
+
+    background-color: red;
 }
 
-.imagen{
+.contenedorImagenProducto{
     grid-area: imagen;
+
+    background-color: rgba(0, 0, 0, .1);
 }
 
-.foto{
+.fotoJugador{
     grid-area: foto;
+    overflow: hidden;
 }
 
 .nombre{
     grid-area: nombre;
+    
+    font-size: 1.1em;
+    color: white;
+    
+    background-color: red;
+
+    && p{
+        margin: 0;
+    }
+}
+
+.bannerArrivals{
+    max-height: 125px;
+}
+
+.imagenProducto{
+    max-height: 190px;
+}
+
+.imagenJugador{
+    max-height: 355px;
+
+    transform: translateX(-38%);
 }
 
 footer{
