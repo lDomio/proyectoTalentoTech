@@ -1,0 +1,103 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+}
+
+body{
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 40px 75px 1fr 50px;
+
+    grid-template-areas: 
+        "header"
+        "nav"
+        "main" 
+        "footer"
+    ;
+}
+
+header{    
+    background-color: red;
+    
+    && p{
+        color: white;
+        margin-top: 0.1875em;
+        text-align: center;
+    }
+}
+
+nav {
+    height: 75px;
+    width: 100%;
+    background-color: gray;
+    gap: 20px;
+
+    && .logo{
+        background-color: darkslategray;
+        height: 40px;
+        flex: .5;
+    }
+    
+    && .Generos{
+        flex: 2;
+        height: 3.125em;
+        background-color: blueviolet;
+    }
+    
+    && .usuario{
+        background-color: darkslategray;
+        height: 40px;
+        flex: .5;
+    }
+    
+    && .Hombres, .Mujeres, .GOAT{
+        width: 25%;
+        background-color: pink;
+        
+    }
+}
+
+main{
+    background-color: brown;
+
+    && .nuevosIngresos{
+        width: 100%;
+        height: 400px;
+        background-color: burlywood;
+    
+        display: grid;
+        grid-template-columns: .5fr 1fr;
+        grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    
+        grid-template-areas: 
+            "arrival foto"
+            "arrival foto"
+            "arrival foto"
+            "imagen foto"
+            "imagen foto"
+            "imagen foto"
+            "imagen nombre"
+        ;
+    }
+}
+
+.arrival{
+    grid-area: arrival;
+}
+
+.imagen{
+    grid-area: imagen;
+}
+
+.foto{
+    grid-area: foto;
+}
+
+.nombre{
+    grid-area: nombre;
+}
+
+footer{
+    background-color: aqua;
+}
