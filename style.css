@@ -88,6 +88,35 @@ main{
             "imagen nombre"
         ;
     }
+
+    && .containerRemeras{
+        width: 80%;
+        height: 200px;
+
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-template-rows: 1fr;
+        grid-template-areas: "remera1 remera2 remera3";
+
+        background-color: green;
+    }
+}
+
+.remera{
+    height: 100px;
+    width: 20px;
+}
+
+.tipo1{
+    grid-area: remera1;
+}
+
+.tipo2{
+    grid-area: remera2;
+}
+
+.tipo3{
+    grid-area: remera3;
 }
 
 .contenedorImagenArrival{
