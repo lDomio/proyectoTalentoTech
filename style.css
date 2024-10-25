@@ -22,9 +22,14 @@ header{
     
     && p{
         color: white;
-        margin-top: 0.1875em;
-        text-align: center;
+        margin: 0;
     }
+}
+
+.logoBallers{
+    width: 3em;
+    height: 3em;
+    border-radius: 2em;
 }
 
 nav {
@@ -33,27 +38,32 @@ nav {
     gap: 20px;
 
     && .logo{
-        background-color: darkslategray;
-        height: 40px;
-        flex: .5;
+        height: 3em;
+        padding: 5px;
+        width: fit-content;
     }
     
     && .Generos{
         flex: 2;
         height: 3.125em;
-        background-color: blueviolet;
     }
     
     && .usuario{
+        border-radius: 20px;
         background-color: darkslategray;
-        height: 40px;
+        height: 3em;
         flex: .5;
     }
     
     && .Hombres, .Mujeres, .GOAT{
         width: 25%;
-        background-color: pink;
-        
+        font-size: 15px;
+        background-color: #D9D9D9;
+        border-radius: 20px;
+    }
+
+    .GOAT{
+        font-size: 20px;
     }
 }
 
@@ -82,14 +92,13 @@ main{
 
 .contenedorImagenArrival{
     grid-area: arrival;
+    grid-row-end: 5;
 
     background-color: red;
 }
 
 .contenedorImagenProducto{
     grid-area: imagen;
-
-    background-color: rgba(0, 0, 0, .1);
 }
 
 .fotoJugador{
@@ -116,6 +125,10 @@ main{
 
 .imagenProducto{
     max-height: 190px;
+
+    filter: drop-shadow(
+        0 10px 15px
+    );
 }
 
 .imagenJugador{
