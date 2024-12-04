@@ -544,6 +544,12 @@ footer{
         max-width: 10em;
         height: auto;
     }
+
+    footer{
+        grid-template-areas: "redes ayuda menu politicas";
+        grid-template-columns: repeat(4, 1fr);
+        grid-template-rows: 150px
+    }
 }
 
 
