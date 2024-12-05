@@ -75,10 +75,17 @@ nav {
         border-radius: 1.25em;
         border: none;
         background-color: #D9D9D9;
+
+        transition: 0.3s;
     }
 
     .GOAT{
         font-size: 20px;
+    }
+
+    && .Hombres:hover, .Mujeres:hover, .GOAT:hover{
+        background-color: #fc466b;
+        color: white;
     }
 }
 
