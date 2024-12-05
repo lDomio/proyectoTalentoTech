@@ -1,0 +1,21 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+}
+
+body{
+    max-width: 100vw;
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 40px 75px 1fr .5fr 0px fit-content;
+
+    grid-template-areas: 
+        "header"
+        "nav"
+        "main"
+        "resenias"
+        "pedidosEspeciales" 
+        "footer"
+    ;
+}
