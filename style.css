@@ -444,6 +444,30 @@ footer{
 
 /* Desarrollo de media queries */
 
+@media screen and (width < 576px) {
+    .logoBallers{
+        height: 2em;
+        width: 2em;
+    }
+    
+    .bannerArrivals{
+        max-height: 100px;
+    }
+
+    footer{
+
+        grid-template-columns: .8fr 1fr;
+
+        && p{
+            width: fit-content;
+        }
+
+        && .menu{
+            width: fit-content;
+        }
+    }
+}
+
 @media screen and (width >= 576px) {
     main{
         && .nuevosIngresos{
