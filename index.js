@@ -21,9 +21,10 @@ document.addEventListener("click", () => {
 });
 
 carritoCompras.addEventListener("click", () => {
+    let modalExistente = document.querySelector(".modal");
     let menuLateralExistente = document.querySelector(".menuLateral");
-
-    if (!menuLateralExistente){
+    
+    if (!modalExistente && !menuLateralExistente){
         console.log("seleccionaste el carrito de compas")
         
         generarMenuLateral();
@@ -33,29 +34,22 @@ carritoCompras.addEventListener("click", () => {
         cerrarMenu.addEventListener('click', () => {
             cerrarMenuDinamico(menuLateral)
         });
-    } else {console.log("ya hay un menu lateral")}
+    } else {console.log("ya hay un menu lateral o un modal")}
 });
 
 document.addEventListener("scroll", () => {
-    const navbar = document.querySelector(".navbar");
     const menuLateral = document.querySelector(".menuLateral");
-    const header = document.querySelector(".header");
-    const navbarHeight = navbar.offsetHeight;
-
-    if (navbar && menuLateral) {
-        menuLateral.style.top = `${navbarHeight}px`;
-    }
-
-    if(window.scrollY == 0){
-        const headerHeight = header.offsetHeight;
-        menuLateral.style.top = `${navbarHeight + headerHeight}px`;
+    
+    if (menuLateral){
+        ajustarPosicionMenu();
     }
 });
 
 cuentaUser.addEventListener("click", () => {
     let modalExistente = document.querySelector(".modal");
-
-    if (!modalExistente){
+    let menuLateralExistente = document.querySelector(".menuLateral");
+    
+    if (!modalExistente && !menuLateralExistente){
         console.log("seleccionaste la cuenta del usuario")
 
         generarModal();
@@ -71,8 +65,9 @@ cuentaUser.addEventListener("click", () => {
 
 descuento.addEventListener("click", () => {
     let modalExistente = document.querySelector(".modal");
+    let menuLateralExistente = document.querySelector(".menuLateral");
     
-    if (!modalExistente){
+    if (!modalExistente && !menuLateralExistente){
         console.log("seleccionaste la cuenta del usuario")
 
         generarModal();
@@ -98,6 +93,20 @@ function resetRemeras(){
     });
 }
 
+function ajustarPosicionMenu(){
+    const navbar = document.querySelector(".navbar");
+    const header = document.querySelector(".header");
+    const navbarHeight = navbar.offsetHeight;
+    const menuLateral = document.querySelector(".menuLateral");
+
+    if(document.documentElement.scrollTop === 0){
+        const headerHeight = header.offsetHeight;
+        menuLateral.style.top = `${navbarHeight + headerHeight}px`;
+    } else {
+        menuLateral.style.top = `${navbarHeight}px`;
+    }
+}
+
 function cerrarMenuDinamico(menu){
     menu.remove();
     console.log(`menu cerrado y eliminado`)   
@@ -107,15 +116,29 @@ function generarModal(){
     const modal = document.createElement("div");
     modal.classList.add("modal");
     modal.classList.add("d-flex");
+    modal.classList.add("flex-row");
     modal.classList.add("justify-content-center");
 
     modal.innerHTML = 
         `
-        <section class="d-flex align-items-center">
-            <p>Hola!</p>
-        </section>
-        <section>
-            <button class="usuario cerrarModal">Close</button>
+        <section class="d-flex flex-column justify-content-evenly">
+            <p>Registrate para obtener un 20% de descuento</p>
+            <form class="d-flex flex-column justify-content-evenly align-items-center h-50" id="myForm" action="https://formsubmit.co/domioluca5@gmail.com" method="POST">
+                <label for="nombre"></label>
+                <input type="text" id="nombre" name="nombre" placeholder="Nombre:" required>
+
+                <label for="email"></label>
+                <input type="mail" id="email" name="email" placeholder="Email: " required>
+
+                <article>
+                    <label for="notificaciones">Me gustaría recibir notificaciones</label>
+                    <input type="checkbox" id="notificaciones" name="notificaciones">
+                </article>
+
+                <button type="submit">Enviar</button>
+            </form>
+
+            <button class="cerrarModal">Cerrar</button>
         </section>
         `
     
@@ -132,8 +155,5 @@ function generarMenuLateral(){
         </section>`
     document.body.insertAdjacentElement("beforeend", menuLateral)
     
-    const headerHeight = header.offsetHeight;
-    const navbarHeight = navbar.offsetHeight;
-    
-    menuLateral.style.top = `${headerHeight + navbarHeight}px`;
-}
+    ajustarPosicionMenu();
+};

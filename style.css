@@ -78,7 +78,6 @@ a{
     height: 100%;
     width: 30%;
     position: fixed;
-    top: 9%;
     left: 70%;
     background-color: aqua;
 }
@@ -478,6 +477,16 @@ footer{
     
     .bannerArrivals{
         max-height: 100px;
+    }
+
+    .modal{
+        left: 5%;
+        width: 90%;
+    }
+
+    .menuLateral{
+        width: 50%;
+        left: 50%;
     }
 
     footer{
