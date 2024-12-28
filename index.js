@@ -20,23 +20,30 @@ document.addEventListener("click", () => {
 });
 
 carritoCompras.addEventListener("click", () => {
-    console.log("seleccionaste el carrito de compas")
-    const menuLateral= document.createElement("aside");
-    menuLateral.classList.add("menuLateral");
-    menuLateral.innerHTML = 
-        `<section class="d-flex">
-            <button class="usuario cerrarMenu">Close</button>
-        </section>`
-    document.body.insertAdjacentElement("beforeend", menuLateral)
-    const headerHeight = header.offsetHeight;
-    const navbarHeight = navbar.offsetHeight;
-    menuLateral.style.top = `${headerHeight + navbarHeight}px`;
-
-    const cerrarMenu = document.querySelector('.cerrarMenu');
-    cerrarMenu.addEventListener('click', () => {
-        menuLateral.remove();
-        console.log('Menu lateral cerrado y eliminado')
-    })
+    let menuLateralExistente = document.querySelector(".menuLateral");
+    if (!menuLateralExistente){
+        console.log("seleccionaste el carrito de compas")
+        
+        const menuLateral= document.createElement("aside");
+        
+        menuLateral.classList.add("menuLateral");
+        menuLateral.innerHTML = 
+            `<section class="d-flex">
+                <button class="usuario cerrarMenu">Close</button>
+            </section>`
+        document.body.insertAdjacentElement("beforeend", menuLateral)
+        
+        const headerHeight = header.offsetHeight;
+        const navbarHeight = navbar.offsetHeight;
+        const cerrarMenu = document.querySelector('.cerrarMenu');
+        
+        menuLateral.style.top = `${headerHeight + navbarHeight}px`;
+    
+        cerrarMenu.addEventListener('click', () => {
+            menuLateral.remove();
+            console.log('Menu lateral cerrado y eliminado')
+        });
+    } else {console.log("ya hay un menu lateral")}
 });
 
 document.addEventListener("scroll", () => {
