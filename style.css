@@ -83,6 +83,16 @@ a{
     background-color: aqua;
 }
 
+.modal{
+    display: block;
+    height: 50%;
+    width: 65%;
+    position: fixed;
+    top: 25%;
+    left: 20%;
+    background-color: aqua;
+}
+
 /* Desarrollo de Main */
 
 main{

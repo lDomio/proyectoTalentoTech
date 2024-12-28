@@ -4,6 +4,7 @@ const carritoCompras = document.querySelector(".carroCompras");
 const cuentaUser = document.querySelector(".userAcc");
 const navbar = document.querySelector(".navbar");
 const header = document.querySelector(".header");
+const descuento = document.querySelector(".containerDescuentos");
 
 remeras.forEach( (remera) => {
     remera.addEventListener("click", (event) => {
@@ -21,27 +22,16 @@ document.addEventListener("click", () => {
 
 carritoCompras.addEventListener("click", () => {
     let menuLateralExistente = document.querySelector(".menuLateral");
+
     if (!menuLateralExistente){
         console.log("seleccionaste el carrito de compas")
         
-        const menuLateral= document.createElement("aside");
-        
-        menuLateral.classList.add("menuLateral");
-        menuLateral.innerHTML = 
-            `<section class="d-flex">
-                <button class="usuario cerrarMenu">Close</button>
-            </section>`
-        document.body.insertAdjacentElement("beforeend", menuLateral)
-        
-        const headerHeight = header.offsetHeight;
-        const navbarHeight = navbar.offsetHeight;
-        const cerrarMenu = document.querySelector('.cerrarMenu');
-        
-        menuLateral.style.top = `${headerHeight + navbarHeight}px`;
+        generarMenuLateral();
+        let cerrarMenu = document.querySelector('.cerrarMenu');
+        let menuLateral = document.querySelector(".menuLateral");
     
         cerrarMenu.addEventListener('click', () => {
-            menuLateral.remove();
-            console.log('Menu lateral cerrado y eliminado')
+            cerrarMenuDinamico(menuLateral)
         });
     } else {console.log("ya hay un menu lateral")}
 });
@@ -63,8 +53,38 @@ document.addEventListener("scroll", () => {
 });
 
 cuentaUser.addEventListener("click", () => {
-    console.log("seleccionaste la cuenta del usuario")
+    let modalExistente = document.querySelector(".modal");
+
+    if (!modalExistente){
+        console.log("seleccionaste la cuenta del usuario")
+
+        generarModal();
+
+        let modal = document.querySelector(".modal");
+
+        const cerrarModal = document.querySelector(".cerrarModal");
+        cerrarModal.addEventListener("click", () => {
+            cerrarMenuDinamico(modal);
+        });
+    } else {console.log("modal ya existente")}
 });
+
+descuento.addEventListener("click", () => {
+    let modalExistente = document.querySelector(".modal");
+    
+    if (!modalExistente){
+        console.log("seleccionaste la cuenta del usuario")
+
+        generarModal();
+
+        let modal = document.querySelector(".modal");
+
+        const cerrarModal = document.querySelector(".cerrarModal");
+        cerrarModal.addEventListener("click", () => {
+            cerrarMenuDinamico(modal);
+        });
+    } else {console.log("modal ya existente")}
+})
 
 function seleccionarRemera(remera){
     remera.classList.add("activa");
@@ -78,6 +98,42 @@ function resetRemeras(){
     });
 }
 
-function cerrarMenuLateral(){
-    const panel = document.querySelector(".menuLateral")   
+function cerrarMenuDinamico(menu){
+    menu.remove();
+    console.log(`menu cerrado y eliminado`)   
+}
+
+function generarModal(){
+    const modal = document.createElement("div");
+    modal.classList.add("modal");
+    modal.classList.add("d-flex");
+    modal.classList.add("justify-content-center");
+
+    modal.innerHTML = 
+        `
+        <section class="d-flex align-items-center">
+            <p>Hola!</p>
+        </section>
+        <section>
+            <button class="usuario cerrarModal">Close</button>
+        </section>
+        `
+    
+    document.body.insertAdjacentElement("beforeend", modal);
+}
+
+function generarMenuLateral(){
+    const menuLateral= document.createElement("aside");
+        
+    menuLateral.classList.add("menuLateral");
+    menuLateral.innerHTML = 
+        `<section class="d-flex">
+            <button class="usuario cerrarMenu">Close</button>
+        </section>`
+    document.body.insertAdjacentElement("beforeend", menuLateral)
+    
+    const headerHeight = header.offsetHeight;
+    const navbarHeight = navbar.offsetHeight;
+    
+    menuLateral.style.top = `${headerHeight + navbarHeight}px`;
 }
