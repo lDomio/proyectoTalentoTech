@@ -5,6 +5,8 @@ const navbar = document.querySelector(".navbar");
 const header = document.querySelector(".header");
 const descuento = document.querySelector(".containerDescuentos");
 
+const listaRemeras = [];
+
 cargarRemeras();
 
 const contenedorRemeras = document.querySelector(".remerasEspeciales");
@@ -22,7 +24,7 @@ contenedorRemeras.addEventListener("click", (event) => {
 
         event.stopPropagation();
     }
-})
+});
 
 document.addEventListener("click", () => {
     resetRemeras();
@@ -179,11 +181,35 @@ async function cargarRemeras(){
             contenedorRemeras.innerHTML += `
                 <article class="remera d-flex flex-column align-items-center">
                     <img class="imagenProducto mt-3 mb-3" src="${remera.imagen}" alt="${remera.nombre}">
-                    <button class="botonDeCompra">Comprar</button>
+                    <button class="botonDeCompra d-none">Comprar</button>
                 </article>
             `
+        });
+
+        const botonesDeCompra = document.querySelectorAll(".botonDeCompra");
+        botonesDeCompra.forEach( (boton, index) => {
+            console.log("lo que hay en .id en remeras[index]", remeras[index].id)
+            boton.addEventListener("click", () => agregarRemera(remeras[index].id));
         });
     } catch(error){
         console.error("error al cargar las remeras: ", error);
     };
 };
+
+async function agregarRemera(idRemera){
+    try{
+        const response = await fetch("./remeras.json");
+        const remeras = await response.json();
+        console.log("esto hay en remeras", remeras);
+        console.log("esto hay en remeras.id", remeras[0].id);
+        console.log("esto le paso por parametro a la función: ", idRemera)
+        const remeraBuscada = remeras.filter( (remera) => {
+            remera.id == idRemera
+        });
+        console.log("esta remera encontro: ", remeraBuscada[0]);
+
+        listaRemeras.push(remeraBuscada);
+    } catch(error){
+        console.error("error al agregar las remeras: ", error)
+    }
+}
