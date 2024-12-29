@@ -249,7 +249,7 @@ main{
 
 .remerasEspeciales{
     max-width: 100vw;
-    height: 250px;
+    height: 300px;
     overflow: hidden;
     margin-bottom: 0.625em;
 
@@ -259,44 +259,9 @@ main{
 
     && .remera{
         height: 200px;
-    }
-
-    && .primera{
-        width: 0.625em;
-    }
-    && .segunda{
         width: 10.625em;
     }
-    && .tercera{
-        width: 0.625em;
-    }
 }
-
-/* .primera:hover{
-    flex: 1;
-
-    && .botonDeCompra{
-        visibility: visible;
-    }
-    
-    && .segunda{
-        width: 6.25em;
-    }
-}
-.segunda:hover{
-    flex: 1;
-
-    && .botonDeCompra{
-        visibility: visible;
-    }
-}
-.tercera:hover{
-    flex: 1;
-
-    && .botonDeCompra{
-        visibility: visible;
-    }
-} */
 
 .pedidosEspeciales{
     background-color: blueviolet;

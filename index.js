@@ -1,20 +1,28 @@
 const main = document.querySelector(".main");
-const remeras = document.querySelectorAll(".remera");
 const carritoCompras = document.querySelector(".carroCompras");
 const cuentaUser = document.querySelector(".userAcc");
 const navbar = document.querySelector(".navbar");
 const header = document.querySelector(".header");
 const descuento = document.querySelector(".containerDescuentos");
 
-remeras.forEach( (remera) => {
-    remera.addEventListener("click", (event) => {
-        if(Array.from(remeras).some( (remera) => remera.classList.contains("activa") )){
+cargarRemeras();
+
+const contenedorRemeras = document.querySelector(".remerasEspeciales");
+
+contenedorRemeras.addEventListener("click", (event) => {
+    const remera = event.target.closest(".remera");
+    if (remera){
+
+        const remerasActivas = document.querySelectorAll('.remera.activa');
+        if (remerasActivas.length > 0) {
             resetRemeras();
         }
-        event.stopPropagation()
+        
         seleccionarRemera(remera);
-    });
-});
+
+        event.stopPropagation();
+    }
+})
 
 document.addEventListener("click", () => {
     resetRemeras();
@@ -87,6 +95,9 @@ function seleccionarRemera(remera){
 };
 
 function resetRemeras(){
+
+    const remeras = document.querySelectorAll(".remera");
+
     remeras.forEach( (remera) => {
         remera.classList.remove("activa")
         remera.querySelector(".botonDeCompra").classList.add("d-none");
@@ -156,4 +167,23 @@ function generarMenuLateral(){
     document.body.insertAdjacentElement("beforeend", menuLateral)
     
     ajustarPosicionMenu();
+};
+
+async function cargarRemeras(){
+    try{
+        const response = await fetch("./remeras.json");
+        const remeras = await response.json();
+        const contenedorRemeras = document.querySelector(".remerasEspeciales");
+        
+        remeras.forEach( remera => {
+            contenedorRemeras.innerHTML += `
+                <article class="remera d-flex flex-column align-items-center">
+                    <img class="imagenProducto mt-3 mb-3" src="${remera.imagen}" alt="${remera.nombre}">
+                    <button class="botonDeCompra">Comprar</button>
+                </article>
+            `
+        });
+    } catch(error){
+        console.error("error al cargar las remeras: ", error);
+    };
 };

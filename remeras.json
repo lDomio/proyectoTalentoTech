@@ -1,0 +1,27 @@
+[
+    {
+        "id": 1,
+        "nombre": "Camiseta Manchester United 2021",
+        "precio": 750,
+        "imagen": "./src/United-removebg-preview.png",
+        "descripcion": "Camiseta de Cristiano Ronaldo en el Manchester United durante la temporada 2021.",
+        "categoria": "hombres"
+    },
+    {
+        "id": 2,
+        "nombre": "Camiseta Paris Saint Germain 2021",
+        "precio": 750,
+        "imagen": "./src/psg2021-removebg-preview.png",
+        "descripcion": "Camiseta de Lionel Messi en el Paris Saint Germain durante la temporada 2021.",
+        "categoria": "GOAT"
+    },
+    {
+        "id": 3,
+        "nombre": "Camiseta Argentina 2022",
+        "precio": 750,
+        "imagen": "./src/argentina2022-removebg-preview.png",
+        "descripcion": "Camiseta de Lionel Messi en la seleccion Argentina durante el mundial.",
+        "categoria": "GOAT"
+    }
+]
+
