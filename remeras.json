@@ -20,7 +20,7 @@
         "nombre": "Camiseta Argentina 2022",
         "precio": 750,
         "imagen": "./src/argentina2022-removebg-preview.png",
-        "descripcion": "Camiseta de Lionel Messi en la seleccion Argentina durante el mundial.",
+        "descripcion": "Camiseta de Lionel Messi en la seleccion Argentina durante el mundial 2022.",
         "categoria": "GOAT"
     }
 ]

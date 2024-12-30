@@ -5,9 +5,10 @@ const navbar = document.querySelector(".navbar");
 const header = document.querySelector(".header");
 const descuento = document.querySelector(".containerDescuentos");
 
-const listaRemeras = [];
+let listaRemeras = [];
 
 cargarRemeras();
+cargarCarritoLocalStorage();
 
 const contenedorRemeras = document.querySelector(".remerasEspeciales");
 
@@ -161,11 +162,14 @@ function generarModal(){
 function generarMenuLateral(){
     const menuLateral= document.createElement("aside");
         
-    menuLateral.classList.add("menuLateral");
+    menuLateral.classList.add("menuLateral", "d-flex", "flex-column");
     menuLateral.innerHTML = 
-        `<section class="d-flex">
+        `<section class="d-flex flex-row-reverse mb-3">
             <button class="usuario cerrarMenu">Close</button>
-        </section>`
+        </section>
+        `
+    cargarRemerasCarrito(menuLateral);
+
     document.body.insertAdjacentElement("beforeend", menuLateral)
     
     ajustarPosicionMenu();
@@ -177,18 +181,20 @@ async function cargarRemeras(){
         const remeras = await response.json();
         const contenedorRemeras = document.querySelector(".remerasEspeciales");
         
-        remeras.forEach( remera => {
+        for (let index = 0; index < remeras.length && index < 4; index++) {
+            const remera = remeras[index];
+            
             contenedorRemeras.innerHTML += `
                 <article class="remera d-flex flex-column align-items-center">
                     <img class="imagenProducto mt-3 mb-3" src="${remera.imagen}" alt="${remera.nombre}">
                     <button class="botonDeCompra d-none">Comprar</button>
                 </article>
             `
-        });
+        }
 
         const botonesDeCompra = document.querySelectorAll(".botonDeCompra");
+        let menuLateral = document.querySelector(".menuLateral");
         botonesDeCompra.forEach( (boton, index) => {
-            console.log("lo que hay en .id en remeras[index]", remeras[index].id)
             boton.addEventListener("click", () => agregarRemera(remeras[index].id));
         });
     } catch(error){
@@ -200,16 +206,84 @@ async function agregarRemera(idRemera){
     try{
         const response = await fetch("./remeras.json");
         const remeras = await response.json();
-        console.log("esto hay en remeras", remeras);
-        console.log("esto hay en remeras.id", remeras[0].id);
-        console.log("esto le paso por parametro a la función: ", idRemera)
-        const remeraBuscada = remeras.filter( (remera) => {
-            remera.id == idRemera
-        });
-        console.log("esta remera encontro: ", remeraBuscada[0]);
-
-        listaRemeras.push(remeraBuscada);
+        const remeraBuscada = remeras.find( remera => remera.id == idRemera );
+        if (remeraBuscada){
+            listaRemeras.push(remeraBuscada);
+            const menuLateral = document.querySelector(".menuLateral");
+            console.log("remera agregada al carrito", remeraBuscada);
+            cargarRemerasCarrito(menuLateral);
+            guardarCarritoLocalStorage();
+        }
     } catch(error){
         console.error("error al agregar las remeras: ", error)
     }
+}
+
+function cargarRemerasCarrito(menuLateral){
+    
+    let costoTotal = listaRemeras.reduce( (acc, remera) => {
+        return acc + remera.precio;
+    }, 0);
+
+    menuLateral.innerHTML = 
+    `
+    <section class="d-flex flex-row-reverse mb-3">
+        <button class="usuario cerrarMenu">Close</button>
+    </section>
+    `;
+
+    for (let i = 0; i < listaRemeras.length; i++) {
+        const element = listaRemeras[i];
+        
+        menuLateral.innerHTML += 
+        `
+        <section class="d-flex flex-row justify-content-around p-3">
+            <article>
+                <img class="imagenLateral" src="${element.imagen}" alt="${element.nombre}">
+            </article>
+            <article class="w-50">
+                <p class="textoLateral">${element.descripcion}</p>
+            </article>
+            <article>${element.precio}</article>
+            <button class="botonLateral quitarRemera">X</button>
+        </section>
+        `
+    }
+
+    menuLateral.innerHTML += 
+    `
+    <section>
+        <p>El costo total es ${costoTotal}</p>
+    </section>
+    `
+
+    const botonesQuitar = menuLateral.querySelectorAll(".quitarRemera");
+    botonesQuitar.forEach( (boton, index) => {
+        boton.addEventListener("click", () => {
+            console.log("seleccionaste");
+            quitarRemera(index, menuLateral);
+        });
+    });
+
+    let cerrarMenu = menuLateral.querySelector('.cerrarMenu');
+    if (cerrarMenu){
+        cerrarMenu.addEventListener('click', () => cerrarMenuDinamico(menuLateral));
+    } else { console.error("no se genero boton")}
+}
+
+function quitarRemera(index, menuLateral){
+    listaRemeras.splice(index, 1);
+    cargarRemerasCarrito(menuLateral);
+    guardarCarritoLocalStorage();
+}
+
+function cargarCarritoLocalStorage(){
+    const carritoGuardado = localStorage.getItem("carrito");
+    if (carritoGuardado){
+        listaRemeras = JSON.parse(carritoGuardado);
+    }
+}
+
+function guardarCarritoLocalStorage(){
+    localStorage.setItem("carrito", JSON.stringify(listaRemeras))
 }

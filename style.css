@@ -192,6 +192,24 @@ main{
     );
 }
 
+.imagenLateral{
+    height: 50px;
+    width: auto;
+}
+
+.textoLateral{
+    font-size: 12px;
+}
+
+.botonLateral{
+    height: fit-content;
+    width: fit-content;
+    border: none;
+    background-color: #ff0000;
+    color: white;
+    border-radius: 2em;
+}
+
 .boton1{
     grid-area: precio1;
 }
